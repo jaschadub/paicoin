@@ -92,6 +92,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
             if(fAllToMe > mine) fAllToMe = mine;
         }
 
+#ifdef ENABLE_SELF_TRANSACTIONS
         if (fAllFromMe && fAllToMe)
         {
             // Payment to self
@@ -101,7 +102,9 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                             -(nDebit - nChange), nCredit - nChange));
             parts.last().involvesWatchAddress = involvesWatchAddress;   // maybe pass to TransactionRecord as constructor argument
         }
-        else if (fAllFromMe)
+        else
+#endif // ENABLE_SELF_TRANSACTIONS
+        if (fAllFromMe)
         {
             //
             // Debit

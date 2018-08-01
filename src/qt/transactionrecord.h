@@ -80,8 +80,12 @@ public:
         SendToAddress,
         SendToOther,
         RecvWithAddress,
+#ifdef ENABLE_SELF_TRANSACTIONS
         RecvFromOther,
         SendToSelf
+#else
+        RecvFromOther
+#endif
     };
 
     /** Number of confirmation recommended for accepting a transaction */
